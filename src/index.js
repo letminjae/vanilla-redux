@@ -4,31 +4,35 @@ const add = document.getElementById("add");
 const minus = document.getElementById("minus");
 const number = document.querySelector("span");
 
-const reducer = (state = 0) => {
-  return state
+const reducer = (count = 0, action) => {
+  // console.log(count, action)
+  if (action.type === "ADD"){
+    return count + 1;
+  } else if (action.type === "MINUS"){
+    return count - 1;
+  } else {
+    return count
+  }
 };
 
 const countStore = createStore(reducer);
-console.log(countStore.getState())
 
 
-// let count = 0;
+const onChange = () => {
+  number.innerText = countStore.getState()
+}
 
-// number.innerText = count
+countStore.subscribe(onChange);
 
-// const updateText = () => {
-//   number.innerText = count;
-// }
 
-// const handleAdd = () => {
-//   count = count + 1;
-//   updateText();
-// }
+const handleAdd = () => {
+  countStore.dispatch({type: "ADD"})
+}
 
-// const handleMinus = () => {
-//   count = count - 1;
-//   updateText();
-// }
+const handleMinus = () => {
+  countStore.dispatch({type: "MINUS"})
+}
 
-// add.addEventListener("click", handleAdd)
-// minus.addEventListener("click", handleMinus)
+add.addEventListener("click", handleAdd)
+
+minus.addEventListener("click", handleMinus)
