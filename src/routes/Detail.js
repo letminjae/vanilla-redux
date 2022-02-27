@@ -3,7 +3,6 @@ import { connect } from "react-redux";
 import { useParams } from "react-router-dom";
 
 const Detail = ({ toDo }) => {
-    console.log(toDo)
     return (
         <>
             <h1>{toDo?.text}</h1>
